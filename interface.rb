@@ -84,6 +84,16 @@ def import(gifts)
     products << [product_name, product_price]
   end
 
+  products.each_with_index do |product, index|
+    puts "#{index+1} - #{product[0]}"
+  end
+
+  puts "Pick one to add to your list (give the number)"
+  index = gets.chomp.to_i - 1
+  gifts << {name: products[index][0], bought: false}
+  save(gifts)
+
+
 
 
 end
