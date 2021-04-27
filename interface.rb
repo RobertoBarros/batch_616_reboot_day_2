@@ -1,15 +1,25 @@
 gifts = %w[perfume carro café\ oppa celular relógio viagem meia]
 
 def list(gifts)
+  puts "-" * 40  
   gifts.each_with_index do |gift, index|
     puts "#{index + 1} - #{gift}"
-   end 
+  end 
+  puts "-" * 40  
 end
 
 def add(gifts)
   puts "Add a new gift:"
   gift = gets.chomp
   gifts << gift
+  list(gifts)
+end
+
+def delete(gifts)
+  list(gifts)
+  puts "Enter gift index to delete: "
+  index = gets.chomp.to_i - 1
+  gifts.delete_at(index)
   list(gifts)
 end
 
@@ -27,7 +37,7 @@ loop do
   when "add"
     add(gifts)
   when "delete"
-    puts "deletando presente"
+    delete(gifts)
   when "quit"
     break
   else
