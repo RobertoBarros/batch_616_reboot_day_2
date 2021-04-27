@@ -1,4 +1,8 @@
+require 'csv'
+
 FILENAME = 'gifts.txt'
+CSV_OPTIONS = { col_sep: ',', quote_char: '"', headers: :first_row }
+
 
 gifts = []
 
