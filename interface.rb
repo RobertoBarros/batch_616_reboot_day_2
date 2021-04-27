@@ -11,10 +11,10 @@ gifts = []
 def save(gifts)
   CSV.open(FILENAME, 'wb', CSV_OPTIONS) do |csv| #WB APAGA O ARQUIVO, salvando novamente.
     # We had headers to the CSV
-    csv << ['name', 'bought']
+    csv << ['name', 'bought', 'price']
     #TODO: store each gift
     gifts.each do |gift|
-      csv << [gift[:name], gift[:bought]]
+      csv << [gift[:name], gift[:bought], gift[:price]]
     end
   end
 end
@@ -24,7 +24,8 @@ def load(gifts)
     # TODO: build new gift from information stored in each row
     name = row['name']
     bought = row['bought'] == 'true'
-    gifts << {name: name, bought: bought}
+    price = row['price']
+    gifts << {name: name, bought: bought, price: price}
   end
 end
 
@@ -32,7 +33,7 @@ def list(gifts)
   puts "-" * 40
   gifts.each_with_index do |gift, index|
     mark = gift[:bought] ? "[X]" : "[ ]"
-    puts "#{index + 1} - #{mark} #{gift[:name]}"
+    puts "#{index + 1} - #{mark} #{gift[:name]} R$ #{gift[:price]}"
   end
   puts "-" * 40
 end
@@ -90,7 +91,7 @@ def import(gifts)
 
   puts "Pick one to add to your list (give the number)"
   index = gets.chomp.to_i - 1
-  gifts << {name: products[index][0], bought: false}
+  gifts << {name: products[index][0], bought: false, price: products[index][1]}
   save(gifts)
 
 
