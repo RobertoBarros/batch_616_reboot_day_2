@@ -93,10 +93,6 @@ def import(gifts)
   index = gets.chomp.to_i - 1
   gifts << {name: products[index][0], bought: false, price: products[index][1]}
   save(gifts)
-
-
-
-
 end
 
 load(gifts) #carregar todos os dados salvos, sem o load sua lista permanecera vazia.
