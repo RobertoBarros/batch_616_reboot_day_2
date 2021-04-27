@@ -6,6 +6,13 @@ def list(gifts)
    end 
 end
 
+def add(gifts)
+  puts "Add a new gift:"
+  gift = gets.chomp
+  gifts << gift
+  list(gifts)
+end
+
 # 1. Welcome
 puts "Welcome"
 loop do
@@ -18,7 +25,7 @@ loop do
   when "list"
     list(gifts) 
   when "add"
-    puts "adicionar presentes"
+    add(gifts)
   when "delete"
     puts "deletando presente"
   when "quit"
