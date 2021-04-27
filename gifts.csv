@@ -1,4 +1,4 @@
-name
-livro
-meia
-celular
+name,bought
+tv,true
+meia,true
+tenis,false
