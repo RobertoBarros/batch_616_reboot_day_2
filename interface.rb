@@ -1,11 +1,13 @@
-gifts = %w[perfume carro café\ oppa celular relógio viagem meia]
+FILENAME = 'gifts.txt'
+
+gifts = []
 
 def list(gifts)
-  puts "-" * 40  
+  puts "-" * 40
   gifts.each_with_index do |gift, index|
     puts "#{index + 1} - #{gift}"
-  end 
-  puts "-" * 40  
+  end
+  puts "-" * 40
 end
 
 def add(gifts)
@@ -33,7 +35,7 @@ loop do
   # 4. Perform the right action
   case action
   when "list"
-    list(gifts) 
+    list(gifts)
   when "add"
     add(gifts)
   when "delete"
