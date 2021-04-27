@@ -1,4 +1,6 @@
 require 'csv'
+require 'open-uri'
+require 'nokogiri'
 
 FILENAME = 'gifts.csv'
 CSV_OPTIONS = { col_sep: ',', quote_char: '"', headers: :first_row }
@@ -29,7 +31,7 @@ end
 def list(gifts)
   puts "-" * 40
   gifts.each_with_index do |gift, index|
-    mark = gift[:bought] ? "[X]" : "[ ]" 
+    mark = gift[:bought] ? "[X]" : "[ ]"
     puts "#{index + 1} - #{mark} #{gift[:name]}"
   end
   puts "-" * 40
@@ -62,12 +64,36 @@ def mark(gifts)
   list(gifts)
 end
 
+def import(gifts)
+  puts "Enter product name:"
+  product_name = gets.chomp
+
+  url = "https://www.amazon.com.br/s?k=#{product_name}"
+
+  user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.854.0 Safari/535.2"
+
+  doc = Nokogiri::HTML(URI.open(url, 'User-Agent' => user_agent).read)
+
+  products = []
+  doc.search('.a-section.a-spacing-medium').first(5).each do |item|
+    product_name = item.search('h2 a').text
+    product_price = item.search('.a-price-whole').text
+
+    next if product_price == ''
+
+    products << [product_name, product_price]
+  end
+
+
+
+end
+
 load(gifts) #carregar todos os dados salvos, sem o load sua lista permanecera vazia.
 # 1. Welcome
 puts "Welcome"
 loop do
   # 2. Display menu (list / add / delete / mark )
-  puts "Which action [list|add|delete|mark|quit]?"
+  puts "Which action [list|add|delete|mark|import|quit]?"
   # 3. Get user action
   action = gets.chomp
   # 4. Perform the right action
@@ -80,6 +106,8 @@ loop do
     delete(gifts)
   when "mark"
     mark(gifts)
+  when "import"
+    import(gifts)
   when "quit"
     break
   else
