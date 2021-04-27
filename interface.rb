@@ -1,3 +1,11 @@
+gifts = %w[perfume carro café\ oppa celular relógio viagem meia]
+
+def list(gifts)
+  gifts.each_with_index do |gift, index|
+    puts "#{index + 1} - #{gift}"
+   end 
+end
+
 # 1. Welcome
 puts "Welcome"
 loop do
@@ -8,15 +16,15 @@ loop do
   # 4. Perform the right action
   case action
   when "list"
-    puts "Lista de presentes"
+    list(gifts) 
   when "add"
     puts "adicionar presentes"
   when "delete"
     puts "deletando presente"
   when "quit"
-    puts "good bye"
     break
   else
     puts "comando nao e valido"
   end
 end
+puts "good bye"
